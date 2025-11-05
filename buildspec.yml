@@ -7,12 +7,12 @@ phases:
     commands:
       - echo Installing Maven...
       - yum install -y maven
-
   build:
     commands:
       - echo Build started
       - mvn clean package
-
 artifacts:
   files:
-    - target/*.jar
+    - target/*.war
+    - appspec.yml
+    - scripts/*

@@ -1,0 +1,24 @@
+pipeline{
+    agent any
+    stages{
+        stage("Checkout Demo code"){
+            steps{
+              sh ' git clone https://github.com/Jeevan-practice/sample-maven.git'
+
+        stage('Build'){
+            steps{
+                echo 'Building..'
+                dir('demo'){
+                    sh 'mvn clean package'
+                }
+            }
+        }
+        
+        stage('Deploy'){
+            steps{
+                echo 'Deploying....'
+                sh' cp ./demo/target/*.war  /var/lib/tomcat/webapps/ '
+            }
+        }
+    }
+}

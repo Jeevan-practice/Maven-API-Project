@@ -42,11 +42,17 @@ resource "aws_security_group" "maven-sg" {
   }
 }
 
+resource "aws_key_pair" "deploy_key" {
+  key_name   = var.key_name
+  public_key = var.public_key
+}
+
 resource "aws_instance" "ec2-instance" {
   ami                    = var.ami_id
   instance_type          = var.instance_type
   subnet_id              = var.subnet_id
   vpc_security_group_ids = [aws_security_group.maven-sg.id]
+  key_name               = aws_key_pair.deploy_key.key_name
   associate_public_ip_address = true
 
   tags = {

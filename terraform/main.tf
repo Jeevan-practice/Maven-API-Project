@@ -14,4 +14,6 @@ module "create-ec2" {
   instance_type = var.instance_type
   vpc_id = module.create-vpc.vpc_id
   subnet_id = module.create-vpc.public_subnet_id
+  key_name = var.key_name
+  public_key = file(var.public_key_path)
 }

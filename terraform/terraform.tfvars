@@ -5,3 +5,4 @@ public_cidr_block = ["10.0.0.16/28"]
 availability_zone = "us-east-2a"
 ami_id = "ami-0c55b159cbfafe1f0"
 instance_type = "t3.micro"
+public_key_path = "/home/codespace/.ssh/id_ed25519.pub"

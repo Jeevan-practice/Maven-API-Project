@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven 'maven-tool'  // This should match the Maven installation name in Jenkins Global Tool Configuration
+        maven 'maven-tool'  // Matches Maven installation name in Jenkins Global Tool Configuration
     }
     stages {
         stage("Checkout Demo code") {
@@ -24,18 +24,11 @@ pipeline {
             steps {
                 s3Upload(
                     bucket: 'maven-artifacts-9964',
-                    includePathPattern: '*.war',
-                    workingDir: '/var/jenkins_home/workspace/Maven-project',
+                    includePathPattern: '**/*.war',   // Use ** for recursive match
+                    workingDir: 'sample-maven/target', // WAR files are inside target folder
                     credentialsId: 'aws-cred'
                 )
             }
         }
-  
-
-       
     }
 }
-
-
-
-

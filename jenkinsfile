@@ -27,15 +27,14 @@ pipeline {
                     dontWaitForConcurrentBuildCompletion: false,
                     dontSetBuildResultOnFailure: false,
                     pluginFailureResultConstraint: 'FAILURE',
-                    profileName: '', // Leave empty if using credentialsId
-                    userMetadata: [], // Required but can be empty
+                    profileName: 's3-profile', 
+                    userMetadata: [],
                     entries: [[
                         bucket: 'maven-artifacts-9964',
                         sourceFile: 'sample-maven/target/*.war',
-                        selectedRegion: 'ap-south-1', // Change to your AWS region
+                        selectedRegion: 'ap-south-1',
                         storageClass: 'STANDARD',
-                        noUploadOnFailure: true,
-                        credentialsId: 'aws-cred'
+                        noUploadOnFailure: true
                     ]]
                 )
             }

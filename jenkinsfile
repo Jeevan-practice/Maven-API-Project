@@ -19,22 +19,23 @@ pipeline {
                 }
             }
         }
-stages {
+
         stage('Upload to S3') {
             steps {
                 s3Upload(
-                    bucket: 'my-bucket-name',
-                    includePathPattern: 'file.txt',
-                    workingDir: '',
-                    credentialsId: 'aws-creds'
+                    bucket: 'maven-artifacts-9964',
+                    includePathPattern: '*.war',
+                    workingDir: '/var/jenkins_home/workspace/Maven-project',
+                    credentialsId: 'aws-cred'
                 )
             }
         }
-    }
+  
 
        
     }
 }
+
 
 
 

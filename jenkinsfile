@@ -24,13 +24,18 @@ pipeline {
             steps {
                 s3Upload(
                     consoleLogLevel: 'INFO',
+                    dontWaitForConcurrentBuildCompletion: false,
+                    dontSetBuildResultOnFailure: false,
+                    pluginFailureResultConstraint: 'FAILURE',
+                    profileName: '', // Leave empty if using credentialsId
+                    userMetadata: [], // Required but can be empty
                     entries: [[
                         bucket: 'maven-artifacts-9964',
                         sourceFile: 'sample-maven/target/*.war',
-                        selectedRegion: 'ap-south-1', 
+                        selectedRegion: 'ap-south-1', // Change to your AWS region
                         storageClass: 'STANDARD',
                         noUploadOnFailure: true,
-                        credentialsId: 'aws-cred' 
+                        credentialsId: 'aws-cred'
                     ]]
                 )
             }

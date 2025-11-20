@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        maven 'maven-tool'  // This should match the Maven installation name in Jenkins Global Tool Configuration
+    }
     stages {
         stage("Checkout Demo code") {
             steps {

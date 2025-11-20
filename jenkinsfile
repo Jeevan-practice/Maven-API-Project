@@ -22,14 +22,21 @@ pipeline {
 
         stage('Upload to S3') {
             steps {
-                withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-cred'
-                ]]) {
-                    sh '''
-                        aws s3 cp sample-maven/target/*.war s3://maven-artifacts-9964/ --region ap-south-1
-                    '''
-                }
+                s3Upload(
+                    consoleLogLevel: 'INFO',
+                    dontWaitForConcurrentBuildCompletion: false,
+                    dontSetBuildResultOnFailure: false,
+                    pluginFailureResultConstraint: 'FAILURE',
+                    profileName: 's3-profile', 
+                    userMetadata: [],
+                    entries: [[
+                        bucket: 'maven-artifacts-9964',
+                        sourceFile: 'sample-maven/target/*.war',
+                        selectedRegion: 'us-east-2',
+                        storageClass: 'STANDARD',
+                        noUploadOnFailure: true
+                    ]]
+                )
             }
         }
     }

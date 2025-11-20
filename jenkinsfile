@@ -27,12 +27,11 @@ pipeline {
                     entries: [[
                         bucket: 'maven-artifacts-9964',
                         sourceFile: 'sample-maven/target/*.war',
-                        selectedRegion: 'ap-south-2', // Change to your AWS region
+                        selectedRegion: 'ap-south-1', 
                         storageClass: 'STANDARD',
-                        noUploadOnFailure: true
-                    ]],
-                    profileName: '', // Leave empty if using credentialsId
-                    credentialsId: 'aws-cred'
+                        noUploadOnFailure: true,
+                        credentialsId: 'aws-cred' 
+                    ]]
                 )
             }
         }

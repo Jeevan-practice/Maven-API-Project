@@ -20,12 +20,8 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-                sh 'cp ./sample-maven/target/*.war /var/lib/tomcat/webapps/'
-            }
-        }
+       
     }
 }
+
 

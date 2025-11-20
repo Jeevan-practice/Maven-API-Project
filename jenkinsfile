@@ -21,24 +21,18 @@ pipeline {
         }
 
         stage('Upload to S3') {
-            steps {
-                s3Upload(
-                    consoleLogLevel: 'INFO',
-                    dontWaitForConcurrentBuildCompletion: false,
-                    dontSetBuildResultOnFailure: false,
-                    pluginFailureResultConstraint: 'FAILURE',
-                    profileName: 's3-profile', 
-                    userMetadata: [],
-                    entries: [[
-                        bucket: 'maven-artifacts-9964',
-                        sourceFile: 'sample-maven/target/*.war',
-                        selectedRegion: 'us-east-2',
-                        storageClass: 'STANDARD',
-                        noUploadOnFailure: true
-                    ]]
-                )
-            }
-        }
+    steps {
+        s3Upload(
+            profileName: 's3-profile', // Must match Jenkins S3 profile name
+            entries: [[
+                bucket: 'maven-artifacts-9964',
+                sourceFile: 'sample-maven/target/*.war',
+                selectedRegion: 'us-east-2'
+            ]]
+        )
     }
 }
+    }
+}
+
 

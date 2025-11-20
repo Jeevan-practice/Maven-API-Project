@@ -32,7 +32,7 @@ pipeline {
                     entries: [[
                         bucket: 'maven-artifacts-9964',
                         sourceFile: 'sample-maven/target/*.war',
-                        selectedRegion: 'ap-south-1',
+                        selectedRegion: 'us-east-2',
                         storageClass: 'STANDARD',
                         noUploadOnFailure: true
                     ]]
@@ -41,3 +41,4 @@ pipeline {
         }
     }
 }
+

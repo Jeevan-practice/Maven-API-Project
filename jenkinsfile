@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven 'maven-tool'  // Matches Maven installation name in Jenkins Global Tool Configuration
+        maven 'maven-tool'
     }
     stages {
         stage("Checkout Demo code") {
@@ -23,9 +23,15 @@ pipeline {
         stage('Upload to S3') {
             steps {
                 s3Upload(
-                    bucket: 'maven-artifacts-9964',
-                    includePathPattern: '**/*.war',   // Use ** for recursive match
-                    workingDir: 'sample-maven/target', // WAR files are inside target folder
+                    consoleLogLevel: 'INFO',
+                    entries: [[
+                        bucket: 'maven-artifacts-9964',
+                        sourceFile: 'sample-maven/target/*.war',
+                        selectedRegion: 'ap-south-2', // Change to your AWS region
+                        storageClass: 'STANDARD',
+                        noUploadOnFailure: true
+                    ]],
+                    profileName: '', // Leave empty if using credentialsId
                     credentialsId: 'aws-cred'
                 )
             }

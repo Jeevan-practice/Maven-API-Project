@@ -19,9 +19,22 @@ pipeline {
                 }
             }
         }
+stages {
+        stage('Upload to S3') {
+            steps {
+                s3Upload(
+                    bucket: 'my-bucket-name',
+                    includePathPattern: 'file.txt',
+                    workingDir: '',
+                    credentialsId: 'aws-creds'
+                )
+            }
+        }
+    }
 
        
     }
 }
+
 
 

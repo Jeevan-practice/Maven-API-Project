@@ -21,18 +21,16 @@ pipeline {
         }
 
         stage('Upload to S3') {
-    steps {
-        s3Upload(
-            profileName: 's3-profile', // Must match Jenkins S3 profile name
-            entries: [[
-                bucket: 'maven-artifacts-9964',
-                sourceFile: 'sample-maven/target/*.war',
-                selectedRegion: 'us-east-2'
-            ]]
-        )
+            steps {
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'aws-cred'
+                ]]) {
+                    sh '''
+                        aws s3 cp sample-maven/target/*.war s3://maven-artifacts-9964/ --region ap-south-1
+                    '''
+                }
+            }
+        }
     }
 }
-    }
-}
-
-

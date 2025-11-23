@@ -15,7 +15,7 @@ public class HomeController {
  
     @GetMapping("/hello")
     public String hello() {
-        return "Hello from EC2 Spring Boot App!";
+        return "Hello from EC2 US-east2 Spring Boot App!";
     }
 }
  

@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    tools {
-        maven 'maven-tool'
-    }
     stages {
         stage("Checkout Demo code") {
             steps {
@@ -10,52 +7,5 @@ pipeline {
                 sh 'git clone https://github.com/Jeevan-practice/sample-maven.git'
             }
         }
-
-        stage('Build') {
-            steps {
-                echo 'Building..'
-                dir('sample-maven') {
-                    sh 'mvn clean package'
-                }
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-                dir('sample-maven') {
-                    sh 'mvn test'
-                }
-            }
-        }
-
-        stage('Upload to S3') {
-            steps {
-                s3Upload(
-                    consoleLogLevel: 'INFO',
-                    dontWaitForConcurrentBuildCompletion: false,
-                    dontSetBuildResultOnFailure: false,
-                    pluginFailureResultConstraint: 'FAILURE',
-                    profileName: 's3-profile', 
-                    userMetadata: [],
-                    entries: [[
-                        bucket: 'maven-artifacts-9964',
-                        sourceFile: 'sample-maven/target/*.war',
-                        selectedRegion: 'us-east-2',
-                        storageClass: 'STANDARD',
-                        noUploadOnFailure: true
-                    ]]
-                )
-            }
-        }
-
-        stage('Deploy using Ansible') {
-            steps {
-                echo 'Deploying artifact to Tomcat using Ansible...'
-                sh '''
-                    ansible-playbook -i ./ansible/hosts.ini ./ansible/playbook.yml
-                '''
-            }
-        }
-    }
-
+}
 }

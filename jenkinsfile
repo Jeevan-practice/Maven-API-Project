@@ -10,8 +10,7 @@ pipeline {
                 sh 'git clone https://github.com/Jeevan-practice/sample-maven.git'
             }
         }
-}
-stage('Build') {
+        stage('Build') {
             steps {
                 echo 'Building..'
                 dir('sample-maven') {
@@ -20,5 +19,7 @@ stage('Build') {
             }
         }
 }
+}
+
 
 

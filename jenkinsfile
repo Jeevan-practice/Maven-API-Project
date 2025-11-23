@@ -11,5 +11,14 @@ pipeline {
             }
         }
 }
+stage('Build') {
+            steps {
+                echo 'Building..'
+                dir('sample-maven') {
+                    sh 'mvn clean package'
+                }
+            }
+        }
 }
+
 

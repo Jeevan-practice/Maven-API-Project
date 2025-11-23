@@ -2,7 +2,7 @@ pipeline {
     agent any
  tools {
         maven 'maven-tool'
-        JDK 'java-17'
+        jdk 'java-17'
     }
     stages {
         stage("Checkout Demo code") {
@@ -21,6 +21,7 @@ pipeline {
         }
 }
 }
+
 
 
 
